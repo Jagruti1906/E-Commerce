@@ -23,7 +23,7 @@ ReactDOM.render(
         <Route path="/auth" render={props => <AuthLayout {...props} />} />
         <Route path="/cart" component={Cart}/>
         <Route path="/orders" component={Orders} />
-        <Redirect from="/" to="/admin/index" />
+        <Redirect from="/" to="/admin/" />
       </Switch>
     </BrowserRouter>
   </Provider>,

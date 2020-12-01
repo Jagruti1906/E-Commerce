@@ -7,6 +7,7 @@ const Cards = ({removeItem, data}) => {
 
     const handleClick = (e) => {
         e.preventDefault();
+        console.log(data);
         removeItem({
             username: data.username,
             item_id: data.item_id

@@ -18,7 +18,7 @@ import {
 import UserHeader from "components/Headers/UserHeader.js";
 import auth from "reducers/auth";
 
-const Profile = ({getProfile, cartItem, login}) => {
+const Profile = ({getProfile, cartItem, login, auth, history}) => {
 
   const [username,setUsername] = useState("");
   const [firstName,setFirstName] = useState("");
@@ -38,7 +38,7 @@ const Profile = ({getProfile, cartItem, login}) => {
   },[])
 
   useEffect(() => {
-    if(localStorage.getItem('username')) {
+    if(localStorage.getItem('username') && !auth.isAuthenticated) {
       const formData = {
         username: localStorage.getItem('username'),
         password: localStorage.getItem('password')
@@ -46,6 +46,12 @@ const Profile = ({getProfile, cartItem, login}) => {
       login({formData});
     }
   },[])
+
+  useEffect(() => {
+    if(!auth.isAuthenticated) {
+      history.push("/auth/login")
+    }
+  },[auth.isAuthenticated])
 
   useEffect(() => {
     if(cartItem.user) {
@@ -254,7 +260,8 @@ const Profile = ({getProfile, cartItem, login}) => {
   }
 
 const mapsStateToProps = state => ({
-  cartItem: state.cartItem
+  cartItem: state.cartItem,
+  auth: state.auth
 })
 
 export default connect(mapsStateToProps, {getProfile, login})(Profile);

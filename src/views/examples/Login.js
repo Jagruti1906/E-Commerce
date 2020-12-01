@@ -38,17 +38,7 @@ const Login = ({login, auth, history}) => {
       if(auth.isAuthenticated) {
         history.push("/")
       }
-    },[auth])
-
-    useEffect(() => {
-      if(localStorage.getItem('username')) {
-        const formData = {
-          username: localStorage.getItem('username'),
-          password: localStorage.getItem('password')
-        }
-        login({formData});
-      }
-    },[])
+    },[auth.isAuthenticated])
 
     return (
       <>

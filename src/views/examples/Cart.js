@@ -51,7 +51,7 @@ const Cart = ({getCart, auth, cartItem, login, history}) => {
               cartItem.user_cart.map((c) => <Cards data = {c}/>)
             ))}
             <div className="text-center">
-            {cartItem.user_cart && (cartItem.user_cart.length !== 0 && `<p>Total: ${cartItem.total}</p>`)}
+            {cartItem.user_cart && (cartItem.user_cart.length !== 0 && `Total: ${cartItem.total}`)}
             {cartItem.user_cart && (cartItem.user_cart.length !== 0 && <Button className="mb-4" color="primary" type="button" onClick={handleClick}>
                 Place Order
               </Button>)}

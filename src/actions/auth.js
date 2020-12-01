@@ -83,3 +83,9 @@ export const clearError = () => async (dispatch) => {
     type: 'CLEAR_ERROR',
   });
 };
+
+export const logout = () => async (dispatch) => {
+  dispatch({
+    type: 'LOGOUT'
+  });
+}

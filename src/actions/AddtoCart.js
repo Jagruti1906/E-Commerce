@@ -1,16 +1,20 @@
 import Axios from "axios"
 
-export const AddtoCart = ({data}) => async dispatch => {
+export const AddtoCart = ({data, username}) => async dispatch => {
     const headers = {
         "Content-Type": "application/json"
     }
-    const response = await Axios.put("/", {
-        user_id: 1,
-        item_id: 2,
-        name: "coke",
-        quantity: 3
-    }, {headers: headers});
-    console.log(response);
+    var i;
+    for(i=0;i<data.length;i++) {
+        const response = await Axios.put("/", {
+            username,
+            item_id: data[i].id,
+            name: data[i].name,
+            quantity: data[i].quantity,
+            price: data[i].price
+        }, {headers: headers});
+        console.log(response);
+    }
     dispatch({type: "ADD_TO_CART", payload: data});
 }
 
@@ -56,7 +60,9 @@ export const removeItem = ({username, item_id}) => async dispatch => {
     const headers = {
         "Content-Type": "application/json"
     }
-    const data = await Axios.delete("/cart", {
+    console.log(username);
+    console.log(item_id)
+    const data = await Axios.put("/cart", {
         username,
         item_id
     }, {headers: headers})

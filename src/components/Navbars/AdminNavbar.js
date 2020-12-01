@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {connect} from "react-redux"
+import {logout} from "../../actions/auth"
 // reactstrap components
 import {
   DropdownMenu,
@@ -18,8 +20,7 @@ import {
   Media
 } from "reactstrap";
 
-class AdminNavbar extends React.Component {
-  render() {
+const AdminNavbar = ({logout, brandText}) => {
     return (
       <>
         <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -28,7 +29,7 @@ class AdminNavbar extends React.Component {
               className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
               to="/"
             >
-              {this.props.brandText}
+              {brandText}
             </Link>
             <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
               <FormGroup className="mb-0">
@@ -64,7 +65,8 @@ class AdminNavbar extends React.Component {
                     <span>My Orders</span>
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+                  <DropdownItem to="/" tag={Link} onClick={e => {e.preventDefault();
+                  logout()}}>
                     <i className="ni ni-user-run" />
                     <span>Logout</span>
                   </DropdownItem>
@@ -75,7 +77,6 @@ class AdminNavbar extends React.Component {
         </Navbar>
       </>
     );
-  }
 }
 
-export default AdminNavbar;
+export default connect(null, {logout})(AdminNavbar);

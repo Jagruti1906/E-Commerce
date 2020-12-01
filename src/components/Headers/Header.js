@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import {withRouter} from "react-router-dom"
+import React, {useState, useEffect, Fragment} from "react";
+import {Redirect} from "react-router-dom"
 
 import { Card, CardBody, CardTitle, Container, Row, Col, FormGroup, Input, Button } from "reactstrap";
 import "../../assets/css/Items.css";
@@ -42,12 +42,6 @@ const Header = ({getItems, AddtoCart,history, cartItem, login, auth }) => {
     }
   },[])
 
-  // useEffect(() => {
-  //   if(!auth.isAuthenticated) {
-  //     history.push("/auth/login")
-  //   }
-  // },[auth.isAuthenticated])
-
   const handleClick = (e) => {
     e.preventDefault();
     console.log(item)
@@ -72,10 +66,17 @@ const Header = ({getItems, AddtoCart,history, cartItem, login, auth }) => {
     }
     console.log(cart);
     AddtoCart({data: cart, username: localStorage.getItem('username')})
+    setCoke(0);
+    setDairy(0);
+    setLays(0);
+    setMaggi(0);
+    setNutella(0);
+    setSpaghetti(0)
   }
 
     return (
       <>
+        {!auth.isAuthenticated ? <Redirect to = "/auth/login" /> : null}
         <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
           {item.length > 0 && <Container fluid>
             <div className="header-body">
@@ -168,7 +169,7 @@ const Header = ({getItems, AddtoCart,history, cartItem, login, auth }) => {
               </Row>
             </div>
           </Container>}
-          {item.length>0 && <Container fluid>
+          {item.length>0 && <Fragment><Container fluid>
             <div className="header-body mt-4">
               {/* Card stats */}
               <Row>
@@ -258,12 +259,13 @@ const Header = ({getItems, AddtoCart,history, cartItem, login, auth }) => {
                 </Col>
               </Row>
             </div>
-          </Container>}
+          </Container>
           <div className="text-center">
           <Button color="primary" type="button" className="mt-4" onClick={handleClick}>
             Add to Cart
           </Button>
           </div>
+          </Fragment>}
         </div>
       </>
     );

@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import {connect} from "react-redux";
-import {signup} from "../../actions/auth";
+import {clearError, signup} from "../../actions/auth";
 
 import {
   Button,
@@ -14,10 +14,11 @@ import {
   InputGroupText,
   InputGroup,
   Row,
-  Col
+  Col,
+  Alert
 } from "reactstrap";
 
-const Register = ({signup, auth, history}) => {
+const Register = ({signup, auth, history, clearError}) => {
 
   const [username,setUsername] = useState("");
   const [firstName,setFirstName] = useState("");
@@ -51,11 +52,23 @@ const Register = ({signup, auth, history}) => {
     }
   },[auth])
 
+  useEffect(() => {
+    if(auth.error) {
+      setTimeout(function() {
+        clearError();
+      }, 2000)
+    }
+  },[auth])
+
     return (
       <>
+      
         <Col lg="6" md="8">
           <Card className="bg-secondary shadow border-0">
             <CardBody className="px-lg-5 py-lg-5">
+            {auth.error && <Alert color="danger">
+        {auth.error}
+      </Alert>}
               <div className="text-center text-muted mb-4">
                 <bold>Sign up with credentials</bold>
               </div>
@@ -191,4 +204,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps, {signup})(Register);
+export default connect(mapStateToProps, {signup, clearError})(Register);

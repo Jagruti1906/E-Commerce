@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { formatDiagnostic } from 'typescript';
 
 export const signup = ({ formData }) => async (dispatch) => {
   try {
@@ -10,16 +9,20 @@ export const signup = ({ formData }) => async (dispatch) => {
       headers: headers,
     });
     console.log(res.data);
-
-    dispatch({
-      type: 'SIGNUP_SUCCESS',
-      payload: "Sign up successful",
-    });
+    if(res.data['message'] === "successful") {
+      dispatch({
+        type: 'SIGNUP_SUCCESS',
+        payload: res.data['message'],
+      });
+    } 
+    else {
+      dispatch({
+        type: 'SIGNUP_ERROR',
+        payload: res.data['message'],
+      });
+    }
   } catch (err) {
-    dispatch({
-      type: 'SIGNUP_ERROR',
-      payload: err.response.data.msg,
-    });
+    
   }
 };
 

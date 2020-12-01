@@ -1,13 +1,13 @@
 import React, {useState, useEffect, Fragment} from "react";
 import {Redirect} from "react-router-dom"
 
-import { Card, CardBody, CardTitle, Container, Row, Col, FormGroup, Input, Button } from "reactstrap";
+import { Card, CardBody, CardTitle, Container, Row, Col, FormGroup, Input, Button, Alert } from "reactstrap";
 import "../../assets/css/Items.css";
 import { connect } from "react-redux";
-import { getItems, AddtoCart } from "../../actions/AddtoCart";
+import { getItems, AddtoCart, clearMsg } from "../../actions/AddtoCart";
 import {login} from "../../actions/auth"
 
-const Header = ({getItems, AddtoCart,history, cartItem, login, auth }) => {
+const Header = ({getItems, AddtoCart,history, cartItem, login, auth, clearMsg }) => {
   const [coke,setCoke] = useState(0);
   const [lays,setLays] = useState(0);
   const [dairy,setDairy] = useState(0);
@@ -41,6 +41,14 @@ const Header = ({getItems, AddtoCart,history, cartItem, login, auth }) => {
       login({formData});
     }
   },[])
+
+  useEffect(() => {
+    if(cartItem.message === "Added to Cart") {
+      setTimeout(function() {
+        clearMsg();
+      },3000)
+    }
+  },[cartItem])
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -78,6 +86,9 @@ const Header = ({getItems, AddtoCart,history, cartItem, login, auth }) => {
       <>
         {!auth.isAuthenticated ? <Redirect to = "/auth/login" /> : null}
         <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
+        {cartItem.message && <Alert color="success">
+        {cartItem.message}
+      </Alert>}
           {item.length > 0 && <Container fluid>
             <div className="header-body">
               {/* Card stats */}
@@ -276,4 +287,4 @@ const mapsStateToProps = state => ({
   auth: state.auth
 })
 
-export default connect(mapsStateToProps, {getItems, AddtoCart, login})(Header);
+export default connect(mapsStateToProps, {getItems, AddtoCart, login, clearMsg})(Header);

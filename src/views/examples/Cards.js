@@ -1,9 +1,9 @@
-import React from 'react';
-import { Card, CardBody, CardTitle, Container, Row, Button } from "reactstrap";
+import React, {useEffect} from 'react';
+import { Card, CardBody, CardTitle, Container, Row, Button, Alert } from "reactstrap";
 import {connect} from "react-redux"
-import {removeItem} from "../../actions/AddtoCart"
+import {removeItem, clearMsg} from "../../actions/AddtoCart"
 
-const Cards = ({removeItem, data}) => {
+const Cards = ({removeItem, data, cartItem, clearMsg}) => {
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -44,4 +44,8 @@ const Cards = ({removeItem, data}) => {
     )
 }
 
-export default connect(null, {removeItem})(Cards);
+const mapStateToProps = state => ({
+    cartItem: state.cartItem
+  })
+
+export default connect(mapStateToProps, {removeItem, clearMsg})(Cards);

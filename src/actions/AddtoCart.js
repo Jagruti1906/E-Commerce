@@ -15,7 +15,7 @@ export const AddtoCart = ({data, username}) => async dispatch => {
         }, {headers: headers});
         console.log(response);
     }
-    dispatch({type: "ADD_TO_CART", payload: data});
+    dispatch({type: "ADD_TO_CART", payload: {data, message: "Added to Cart"}});
 }
 
 export const getItems = () => async dispatch => {
@@ -88,4 +88,8 @@ export const getOrders = ({username}) => async dispatch => {
         username
     }, {headers: headers})
     dispatch({type: "GET_ORDERS", payload: data.data})
+}
+
+export const clearMsg = () => async dispatch => {
+    dispatch({type: "CLEAR_MESSAGE"})
 }

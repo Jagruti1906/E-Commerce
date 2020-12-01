@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../../assets/css/Items.css"
 
 import {
   UncontrolledCollapse,
@@ -23,7 +24,7 @@ class AdminNavbar extends React.Component {
         >
           <Container className="px-4">
             <NavbarBrand to="/" tag={Link} className="w-25">
-              <img alt="..." src={require("assets/img/brand/logo_png.png")}/>
+              <img alt="..." src={require("assets/img/brand/logo_png.png")} style={{width: "150px", height: "80px"}}/>
             </NavbarBrand>
             <button className="navbar-toggler" id="navbar-collapse-main">
               <span className="navbar-toggler-icon" />
@@ -52,12 +53,6 @@ class AdminNavbar extends React.Component {
               </div>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink className="nav-link-icon" to="/admin/index" tag={Link}>
-                    <i className="ni ni-basket" />
-                    <span className="nav-link-inner--text">Items</span>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
                   <NavLink
                     className="nav-link-icon"
                     to="/auth/register"
@@ -75,16 +70,6 @@ class AdminNavbar extends React.Component {
                   >
                     <i className="ni ni-key-25" />
                     <span className="nav-link-inner--text">Login</span>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink
-                    className="nav-link-icon"
-                    to="/admin/user-profile"
-                    tag={Link}
-                  >
-                    <i className="ni ni-single-02" />
-                    <span className="nav-link-inner--text">Profile</span>
                   </NavLink>
                 </NavItem>
               </Nav>

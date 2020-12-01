@@ -15,13 +15,12 @@ class Navbars extends React.Component {
           className="navbar-horizontal navbar-dark bg-default"
           expand="lg"
         >
-            <Link to="#" style={{color: "white"}} className="pl-4">Back</Link>
-            <div className="ml-auto mr-4">
-                <Link to="/admin/index"> 
-                <i className="ni ni-basket mr-2" style={{color: "white"}}/>
-                <span className="nav-link-inner--text" style={{color: "white"}}>Items</span>
-                </Link>
-            </div>
+          <div className="ml-auto mr-4">
+              <Link to="/admin/index"> 
+              <i className="ni ni-basket mr-2" style={{color: "white"}}/>
+              <span className="nav-link-inner--text" style={{color: "white"}}>Items</span>
+              </Link>
+          </div>
         </Navbar>
       </>
     );

@@ -14,13 +14,14 @@ import {
   InputGroupText,
   InputGroup,
   Row,
-  Col
+  Col,
+  Alert
 } from "reactstrap";
 import auth from "reducers/auth";
 
-import {login} from "../../actions/auth"
+import {clearError, login} from "../../actions/auth"
 
-const Login = ({login, auth, history}) => {
+const Login = ({login, auth, history, clearError}) => {
 
     const [username,setUsername] = useState("");
     const [password,setPass] = useState("");
@@ -40,11 +41,22 @@ const Login = ({login, auth, history}) => {
       }
     },[auth.isAuthenticated])
 
+    useEffect(() => {
+      if(auth.error) {
+        setTimeout(function() {
+          clearError();
+        }, 2000)
+      }
+    },[auth])
+
     return (
       <>
         <Col lg="5" md="7">
           <Card className="bg-secondary shadow border-0">
             <CardHeader className="px-lg-5 py-lg-5">
+            {auth.error && <Alert color="danger">
+        {auth.error}
+      </Alert>}
               <div className="text-center text-muted mb-4">
                 <bold>Sign in with credentials</bold>
               </div>
@@ -96,4 +108,4 @@ const mapsStateToProps = state => ({
   auth: state.auth
 })
 
-export default connect(mapsStateToProps, {login})(Login);
+export default connect(mapsStateToProps, {login, clearError})(Login);

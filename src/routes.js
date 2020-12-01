@@ -5,7 +5,7 @@ import Login from "views/examples/Login.js";
 
 var routes = [
   {
-    path: "/",
+    path: "/index",
     name: "Items",
     icon: "ni ni-basket text-primary",
     component: Index,

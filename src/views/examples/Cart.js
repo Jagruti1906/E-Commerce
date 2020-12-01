@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 import {getCart, placeOrder} from "../../actions/AddtoCart"
 import {login} from "../../actions/auth"
 
-const Cart = ({getCart, auth, cartItem, login, history}) => {
+const Cart = ({getCart, auth, cartItem, login, history, placeOrder}) => {
 
   useEffect(() => {
     if(localStorage.getItem('username')) {
@@ -40,8 +40,9 @@ const Cart = ({getCart, auth, cartItem, login, history}) => {
   const handleClick = (e) => {
     e.preventDefault();
     placeOrder({
-      username: localStorage.getItem['username']
+      username: localStorage.getItem('username')
     })
+    history.push("/orders")
   }
 
     return (

@@ -47,7 +47,7 @@ const Register = ({signup, auth, history}) => {
 
   useEffect(() => {
     if(auth.msg === "successful") {
-      history.push("/login")
+      history.push("/auth/login")
     }
   },[auth])
 

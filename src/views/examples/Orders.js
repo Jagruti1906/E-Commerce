@@ -34,13 +34,9 @@ const Orders = ({getOrders, login, cartItem, history}) => {
             <Navbars />
             <h1 className="text-uppercase m-4">Orders</h1>
             <div className="header-body ml-2 mr-6 mt-4 mb-4">
-                <Container fluid>
-                    <Card className="card-stats mb-4 mb-xl-0 border border-primary">
-                        <CardBody>
-                            {cartItem.user_orders && cartItem.user_orders.map((order) => <OrderCard data = {order}/>)}
-                        </CardBody>
-                    </Card>
-                </Container>
+              <Container fluid>
+                {cartItem.user_orders && cartItem.user_orders.map((order) => <OrderCard data = {order}/>)}
+              </Container>
             </div>
         </div>
     )

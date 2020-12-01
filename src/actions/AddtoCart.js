@@ -73,6 +73,7 @@ export const placeOrder = ({username}) => async dispatch => {
     const headers = {
         "Content-Type": "application/json"
     }
+    console.log(username)
     const data = await Axios.put("/orders", {
         username
     }, {headers: headers})

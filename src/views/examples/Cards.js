@@ -22,7 +22,7 @@ const Cards = ({removeItem, data}) => {
                     <Row>
                         <div className="col-1 col-md-5 col-sm-7">
                             <span>
-                            <img alt="..." src={require('assets/img/items/lays.png')} className="items-img"/>
+                            <img alt="..." src={require(`assets/img/items/${data.name}_png.png`)} className="items-img"/>
                             </span>
                         </div>
                         <div className="col-11 col-md-7 col-sm-5">

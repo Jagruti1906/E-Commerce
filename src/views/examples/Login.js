@@ -36,7 +36,7 @@ const Login = ({login, auth, history}) => {
 
     useEffect(() => {
       if(auth.isAuthenticated) {
-        history.push("/")
+        history.push("/admin/index")
       }
     },[auth.isAuthenticated])
 

@@ -6,7 +6,8 @@ const initialState = {
     user_cart: null,
     total: null,
     user_orders: null,
-    message: null
+    message: null,
+    category: null
 }
 
 const cartReducer = (state = initialState, action) => {

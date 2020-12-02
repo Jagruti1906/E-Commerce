@@ -16,13 +16,10 @@ const Header = ({getItems, AddtoCart,history, cartItem, login, auth, clearMsg })
   const [nutella,setNutella] = useState(0);
   const [item, setItem] = useState([]);
 
-  const items = [{name: "coke", price: 30, item_id: 1, img: "coke_png.png", qty: 0},{name: "lays", price: 20, item_id: 2, img: "lays_png.png", qty: 0},{name: "dairyMilk", price: 10, item_id: 3, img: "dairy_milk_png.png", qty: 0},{name: "spaghetti", price: 50, item_id: 4, img: "spaghetti_png.png", qty: 0},{name: "maggi", price: 30, item_id: 5, img: "maggi_png.png", qty: 0},{name: "nutella", price: 100, item_id: 6, img: "nutella_png.png", qty: 0}]
-
-  useEffect(() => {
+    useEffect(() => {
     if(auth.isAuthenticated) {
       getItems();
     }
-    
   }, [auth])
 
   useEffect(() => {
@@ -89,6 +86,188 @@ const Header = ({getItems, AddtoCart,history, cartItem, login, auth, clearMsg })
         {cartItem.message && <Alert color="success">
         {cartItem.message}
       </Alert>}
+          {item.length > 0 && <Container fluid>
+            <div className="header-body">
+              {/* Card stats */}
+              <Row>
+                <Col lg="6" xl="4">
+                  <Card className="card-stats mb-4 mb-xl-0">
+                    <CardBody>
+                      <Row>
+                        <div className="col-8 col-md-7 col-sm-4">
+                            <span>
+                              {item.length>0 && <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Lays")[0].name}_png.png`)} className="items-img"/>}
+                            </span>
+                        </div>
+                        <div className="col-4 col-md-5 col-sm-8">
+                          <CardTitle tag="h3"
+                          className="text-uppercase text-muted mb-0">
+                            {item.filter(i => i.name==="Lays")[0].name}
+                          </CardTitle>
+                          <h5>{item.filter(i => i.name==="Lays")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
+                          <h4>Price: {item.filter(i => i.name==="Lays")[0].price}</h4>
+                          <div>
+                           <FormGroup >
+                            <Input
+                              type="number" value={lays} onChange={e=>setLays(e.target.value)} 
+                            />
+                          </FormGroup>
+    </div>
+                        </div>
+                      </Row>
+                    </CardBody>
+                  </Card>
+                </Col>
+                <Col lg="6" xl="4">
+                  <Card className="card-stats mb-4 mb-xl-0">
+                    <CardBody>
+                      <Row>
+                        <div className="col-8 col-md-7 col-sm-4">
+                          <span>
+                            <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Coke")[0].name}_png.png`)} style={{width: "60px", height: "150px"}}/>
+                          </span>
+                        </div>
+                        <div className="col-4 col-md-5 col-sm-8">
+                          <CardTitle tag="h3"
+                          className="text-uppercase text-muted mb-0">
+                          {item.filter(i => i.name==="Coke")[0].name}
+                          </CardTitle>
+                          <h5>{item.filter(i => i.name==="Coke")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
+                          <h4>Price: {item.filter(i => i.name==="Coke")[0].price}</h4>
+                          <div>
+                          <FormGroup>
+                          <Input
+                            type="number" value={coke} onChange={e=>setCoke(e.target.value)}
+                          />
+                        </FormGroup>
+                          </div>
+                        </div>
+                      </Row>
+                    </CardBody>
+                  </Card>
+                </Col>
+                <Col lg="6" xl="4">
+                  <Card className="card-stats mb-4 mb-xl-0">
+                    <CardBody>
+                      <Row>
+                      <div className="col-8 col-md-7 col-sm-4">
+                      <span>
+                        <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Chocolate")[0].name}_png.png`)} style={{width: "170px", height: "100px"}}/>
+                      </span>
+                    </div>
+                    <div className="col-4 col-md-5 col-sm-8">
+                      <CardTitle tag="h3"
+                      className="text-uppercase text-muted mb-0">
+                      {item.filter(i => i.name==="Chocolate")[0].name}
+                      </CardTitle>
+                      <h5>{item.filter(i => i.name==="Chocolate")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
+                      <h4>Price: {item.filter(i => i.name==="Chocolate")[0].price}</h4>
+                      <div>
+                      <FormGroup>
+                      <Input
+                        type="number" value={dairy} onChange={e=>setDairy(e.target.value)}
+                      />
+                    </FormGroup>
+                          </div>
+                    </div>
+                      </Row>
+                    </CardBody>
+                  </Card>
+                </Col>
+              </Row>
+            </div>
+          </Container>}
+          {item.length > 0 && <Container fluid>
+            <div className="header-body">
+              {/* Card stats */}
+              <Row>
+                <Col lg="6" xl="4">
+                  <Card className="card-stats mb-4 mb-xl-0">
+                    <CardBody>
+                      <Row>
+                        <div className="col-8 col-md-7 col-sm-4">
+                            <span>
+                              {item.length>0 && <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Lays")[0].name}_png.png`)} className="items-img"/>}
+                            </span>
+                        </div>
+                        <div className="col-4 col-md-5 col-sm-8">
+                          <CardTitle tag="h3"
+                          className="text-uppercase text-muted mb-0">
+                            {item.filter(i => i.name==="Lays")[0].name}
+                          </CardTitle>
+                          <h5>{item.filter(i => i.name==="Lays")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
+                          <h4>Price: {item.filter(i => i.name==="Lays")[0].price}</h4>
+                          <div>
+                           <FormGroup >
+                            <Input
+                              type="number" value={lays} onChange={e=>setLays(e.target.value)} 
+                            />
+                          </FormGroup>
+    </div>
+                        </div>
+                      </Row>
+                    </CardBody>
+                  </Card>
+                </Col>
+                <Col lg="6" xl="4">
+                  <Card className="card-stats mb-4 mb-xl-0">
+                    <CardBody>
+                      <Row>
+                        <div className="col-8 col-md-7 col-sm-4">
+                          <span>
+                            <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Coke")[0].name}_png.png`)} style={{width: "60px", height: "150px"}}/>
+                          </span>
+                        </div>
+                        <div className="col-4 col-md-5 col-sm-8">
+                          <CardTitle tag="h3"
+                          className="text-uppercase text-muted mb-0">
+                          {item.filter(i => i.name==="Coke")[0].name}
+                          </CardTitle>
+                          <h5>{item.filter(i => i.name==="Coke")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
+                          <h4>Price: {item.filter(i => i.name==="Coke")[0].price}</h4>
+                          <div>
+                          <FormGroup>
+                          <Input
+                            type="number" value={coke} onChange={e=>setCoke(e.target.value)}
+                          />
+                        </FormGroup>
+                          </div>
+                        </div>
+                      </Row>
+                    </CardBody>
+                  </Card>
+                </Col>
+                <Col lg="6" xl="4">
+                  <Card className="card-stats mb-4 mb-xl-0">
+                    <CardBody>
+                      <Row>
+                      <div className="col-8 col-md-7 col-sm-4">
+                      <span>
+                        <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Chocolate")[0].name}_png.png`)} style={{width: "170px", height: "100px"}}/>
+                      </span>
+                    </div>
+                    <div className="col-4 col-md-5 col-sm-8">
+                      <CardTitle tag="h3"
+                      className="text-uppercase text-muted mb-0">
+                      {item.filter(i => i.name==="Chocolate")[0].name}
+                      </CardTitle>
+                      <h5>{item.filter(i => i.name==="Chocolate")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
+                      <h4>Price: {item.filter(i => i.name==="Chocolate")[0].price}</h4>
+                      <div>
+                      <FormGroup>
+                      <Input
+                        type="number" value={dairy} onChange={e=>setDairy(e.target.value)}
+                      />
+                    </FormGroup>
+                          </div>
+                    </div>
+                      </Row>
+                    </CardBody>
+                  </Card>
+                </Col>
+              </Row>
+            </div>
+          </Container>}
           {item.length > 0 && <Container fluid>
             <div className="header-body">
               {/* Card stats */}

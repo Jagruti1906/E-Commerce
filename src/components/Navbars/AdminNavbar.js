@@ -35,39 +35,6 @@ const AdminNavbar = ({logout, brandText}) => {
               <UncontrolledDropdown nav>
                 <DropdownToggle className="pr-0" nav>
                   <Media className="align-items-center">
-                    <span className="text-uppercase">
-                      <p>Category</p>
-                    </span>
-                  </Media>
-                </DropdownToggle>
-                <DropdownMenu className="dropdown-menu-arrow" right>
-                  <DropdownItem to="/cart" tag={Link}>
-                    <i className="ni ni-cart" />
-                    <span>Chocolate</span>
-                  </DropdownItem>
-                  <DropdownItem to="/orders" tag={Link}>
-                    <i className="ni ni-shop" />
-                    <span>Chips</span>
-                  </DropdownItem>
-                  <DropdownItem to="/orders" tag={Link}>
-                    <i className="ni ni-shop" />
-                    <span>Drinks</span>
-                  </DropdownItem>
-                  <DropdownItem to="/orders" tag={Link}>
-                    <i className="ni ni-shop" />
-                    <span>Noodles and Pasta</span>
-                  </DropdownItem>
-                  <DropdownItem to="/orders" tag={Link}>
-                    <i className="ni ni-shop" />
-                    <span>Dairy</span>
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </Nav>
-            <Nav className="align-items-center d-none d-md-flex" navbar>
-              <UncontrolledDropdown nav>
-                <DropdownToggle className="pr-0" nav>
-                  <Media className="align-items-center">
                     <span className="avatar avatar-sm rounded-circle" style={{color: "black"}}>
                       <i className="ni ni-single-02" />
                     </span>

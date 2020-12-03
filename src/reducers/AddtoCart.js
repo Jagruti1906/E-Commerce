@@ -1,6 +1,5 @@
 const initialState = {
     cart: null,
-    items: null,
     user: null,
     customer: null,
     user_cart: null,
@@ -15,11 +14,11 @@ const cartReducer = (state = initialState, action) => {
         case "ADD_TO_CART" : 
             return {...state, cart: action.payload, message: action.payload.message}
         case "SET_ITEMS": 
-            return {...state, items: action.payload}
+            return {...state, category: action.payload}
         case "SET_PROFILE":
             return {...state, user: action.payload['user'], customer: action.payload['customer']}
         case "CLEAR_DATA": 
-            return {cart: null, items: null, user: null, customer: null}
+            return {cart: null, category: null, user: null, customer: null}
         case "SET_CART": 
         case "REMOVE_ITEM": 
             return {...state, user_cart: action.payload['user_cart'], total: action.payload['total'], message: action.payload.message}

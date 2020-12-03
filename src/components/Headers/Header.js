@@ -1,11 +1,13 @@
 import React, {useState, useEffect, Fragment} from "react";
-import {Redirect} from "react-router-dom"
+import {Redirect, Link} from "react-router-dom"
 
-import { Card, CardBody, CardTitle, Container, Row, Col, FormGroup, Input, Button, Alert } from "reactstrap";
+import {TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col, Alert } from "reactstrap";
 import "../../assets/css/Items.css";
 import { connect } from "react-redux";
 import { getItems, AddtoCart, clearMsg } from "../../actions/AddtoCart";
 import {login} from "../../actions/auth"
+import Category from "../../views/examples/Category"
+import classnames from 'classnames';
 
 const Header = ({getItems, AddtoCart,history, cartItem, login, auth, clearMsg }) => {
   const [coke,setCoke] = useState(0);
@@ -20,6 +22,12 @@ const Header = ({getItems, AddtoCart,history, cartItem, login, auth, clearMsg })
   const [cheese,setCheese] = useState(0);
   const [butter,setButter] = useState(0);
   const [item, setItem] = useState([]);
+  const [cat, setCat] = useState("Chocolate")
+  const [activeTab, setActiveTab] = useState('1');
+
+  const toggle = tab => {
+    if(activeTab !== tab) setActiveTab(tab);
+  }
 
     useEffect(() => {
     if(auth.isAuthenticated) {
@@ -28,10 +36,13 @@ const Header = ({getItems, AddtoCart,history, cartItem, login, auth, clearMsg })
   }, [auth])
 
   useEffect(() => {
-    if(cartItem.items) {
-      setItem(cartItem.items.items)
-      console.log(cartItem.items)
-    } 
+    // if(cartItem.category.categories) {
+    //   setItem(cartItem.category.categories[0].items)
+    // } 
+    if(cartItem.category) {
+      console.log(cartItem.category.categories)
+    }
+    
   }, [cartItem])
 
   useEffect(() => {
@@ -111,348 +122,83 @@ const Header = ({getItems, AddtoCart,history, cartItem, login, auth, clearMsg })
         {cartItem.message && <Alert color="success">
         {cartItem.message}
       </Alert>}
-          {item.length > 0 && <Container fluid>
-            <div className="header-body">
-              {/* Card stats */}
-              <Row>
-                <Col lg="6" xl="4">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                    <CardBody>
-                      <Row>
-                        <div className="col-8 col-md-7 col-sm-4">
-                            <span>
-                              {item.length>0 && <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Lays")[0].name}_png.png`)} className="items-img"/>}
-                            </span>
-                        </div>
-                        <div className="col-4 col-md-5 col-sm-8">
-                          <CardTitle tag="h3"
-                          className="text-uppercase text-muted mb-0">
-                            {item.filter(i => i.name==="Lays")[0].name}
-                          </CardTitle>
-                          <h5>{item.filter(i => i.name==="Lays")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
-                          <h4>Price: {item.filter(i => i.name==="Lays")[0].price}</h4>
-                          <div>
-                           <FormGroup >
-                            <Input
-                              type="number" value={lays} onChange={e=>setLays(e.target.value)} 
-                            />
-                          </FormGroup>
-    </div>
-                        </div>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </Col>
-                <Col lg="6" xl="4">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                    <CardBody>
-                      <Row>
-                        <div className="col-8 col-md-7 col-sm-4">
-                          <span>
-                            <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Coke")[0].name}_png.png`)} style={{width: "60px", height: "150px"}}/>
-                          </span>
-                        </div>
-                        <div className="col-4 col-md-5 col-sm-8">
-                          <CardTitle tag="h3"
-                          className="text-uppercase text-muted mb-0">
-                          {item.filter(i => i.name==="Coke")[0].name}
-                          </CardTitle>
-                          <h5>{item.filter(i => i.name==="Coke")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
-                          <h4>Price: {item.filter(i => i.name==="Coke")[0].price}</h4>
-                          <div>
-                          <FormGroup>
-                          <Input
-                            type="number" value={coke} onChange={e=>setCoke(e.target.value)}
-                          />
-                        </FormGroup>
-                          </div>
-                        </div>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </Col>
-                <Col lg="6" xl="4">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                    <CardBody>
-                      <Row>
-                      <div className="col-8 col-md-7 col-sm-4">
-                      <span>
-                        <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Dairy Milk")[0].name}_png.png`)} style={{width: "170px", height: "100px"}}/>
-                      </span>
-                    </div>
-                    <div className="col-4 col-md-5 col-sm-8">
-                      <CardTitle tag="h3"
-                      className="text-uppercase text-muted mb-0">
-                      {item.filter(i => i.name==="Dairy Milk")[0].name}
-                      </CardTitle>
-                      <h5>{item.filter(i => i.name==="Dairy Milk")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
-                      <h4>Price: {item.filter(i => i.name==="Dairy Milk")[0].price}</h4>
-                      <div>
-                      <FormGroup>
-                      <Input
-                        type="number" value={dairy} onChange={e=>setDairy(e.target.value)}
-                      />
-                    </FormGroup>
-                          </div>
-                    </div>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </Col>
-              </Row>
-            </div>
-          </Container>}
-          {item.length > 0 && <Container fluid>
-            <div className="header-body">
-              {/* Card stats */}
-              <Row>
-                <Col lg="6" xl="4">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                    <CardBody>
-                      <Row>
-                        <div className="col-8 col-md-7 col-sm-4">
-                            <span>
-                              {item.length>0 && <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Doritos")[0].name}_png.png`)} className="items-img"/>}
-                            </span>
-                        </div>
-                        <div className="col-4 col-md-5 col-sm-8">
-                          <CardTitle tag="h3"
-                          className="text-uppercase text-muted mb-0">
-                            {item.filter(i => i.name==="Doritos")[0].name}
-                          </CardTitle>
-                          <h5>{item.filter(i => i.name==="Doritos")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
-                          <h4>Price: {item.filter(i => i.name==="Doritos")[0].price}</h4>
-                          <div>
-                           <FormGroup >
-                            <Input
-                              type="number" value={doritos} onChange={e=>setDoritos(e.target.value)} 
-                            />
-                          </FormGroup>
-    </div>
-                        </div>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </Col>
-                <Col lg="6" xl="4">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                    <CardBody>
-                      <Row>
-                        <div className="col-8 col-md-7 col-sm-4">
-                          <span>
-                            <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Pringles")[0].name}_png.png`)} style={{width: "60px", height: "150px"}}/>
-                          </span>
-                        </div>
-                        <div className="col-4 col-md-5 col-sm-8">
-                          <CardTitle tag="h3"
-                          className="text-uppercase text-muted mb-0">
-                          {item.filter(i => i.name==="Pringles")[0].name}
-                          </CardTitle>
-                          <h5>{item.filter(i => i.name==="Pringles")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
-                          <h4>Price: {item.filter(i => i.name==="Pringles")[0].price}</h4>
-                          <div>
-                          <FormGroup>
-                          <Input
-                            type="number" value={pringles} onChange={e=>setPringles(e.target.value)}
-                          />
-                        </FormGroup>
-                          </div>
-                        </div>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </Col>
-                <Col lg="6" xl="4">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                    <CardBody>
-                      <Row>
-                      <div className="col-8 col-md-7 col-sm-4">
-                      <span>
-                        <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Butter")[0].name}_png.png`)} style={{width: "170px", height: "100px"}}/>
-                      </span>
-                    </div>
-                    <div className="col-4 col-md-5 col-sm-8">
-                      <CardTitle tag="h3"
-                      className="text-uppercase text-muted mb-0">
-                      {item.filter(i => i.name==="Butter")[0].name}
-                      </CardTitle>
-                      <h5>{item.filter(i => i.name==="Butter")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
-                      <h4>Price: {item.filter(i => i.name==="Butter")[0].price}</h4>
-                      <div>
-                      <FormGroup>
-                      <Input
-                        type="number" value={butter} onChange={e=>setButter(e.target.value)}
-                      />
-                    </FormGroup>
-                          </div>
-                    </div>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </Col>
-              </Row>
-            </div>
-          </Container>}
-          {item.length > 0 && <Container fluid>
-            <div className="header-body">
-              {/* Card stats */}
-              <Row>
-                <Col lg="6" xl="4">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                    <CardBody>
-                      <Row>
-                        <div className="col-8 col-md-7 col-sm-4">
-                            <span>
-                              {item.length>0 && <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Cheese")[0].name}_png.png`)} className="items-img"/>}
-                            </span>
-                        </div>
-                        <div className="col-4 col-md-5 col-sm-8">
-                          <CardTitle tag="h3"
-                          className="text-uppercase text-muted mb-0">
-                            {item.filter(i => i.name==="Cheese")[0].name}
-                          </CardTitle>
-                          <h5>{item.filter(i => i.name==="Cheese")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
-                          <h4>Price: {item.filter(i => i.name==="Cheese")[0].price}</h4>
-                          <div>
-                           <FormGroup >
-                            <Input
-                              type="number" value={cheese} onChange={e=>setCheese(e.target.value)} 
-                            />
-                          </FormGroup>
-    </div>
-                        </div>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </Col>
-                <Col lg="6" xl="4">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                    <CardBody>
-                      <Row>
-                        <div className="col-8 col-md-7 col-sm-4">
-                          <span>
-                            <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Mogu Mogu")[0].name}_png.png`)} style={{width: "60px", height: "150px"}}/>
-                          </span>
-                        </div>
-                        <div className="col-4 col-md-5 col-sm-8">
-                          <CardTitle tag="h3"
-                          className="text-uppercase text-muted mb-0">
-                          {item.filter(i => i.name==="Mogu Mogu")[0].name}
-                          </CardTitle>
-                          <h5>{item.filter(i => i.name==="Mogu Mogu")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
-                          <h4>Price: {item.filter(i => i.name==="Mogu Mogu")[0].price}</h4>
-                          <div>
-                          <FormGroup>
-                          <Input
-                            type="number" value={mogu} onChange={e=>setMogu(e.target.value)}
-                          />
-                        </FormGroup>
-                          </div>
-                        </div>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </Col>
-              </Row>
-            </div>
-          </Container>}
-          {item.length>0 && <Fragment><Container fluid>
-            <div className="header-body mt-4">
-              {/* Card stats */}
-              <Row>
-                <Col lg="6" xl="4">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                    <CardBody>
-                      <Row>
-                      <div className="col-8 col-md-7 col-sm-4">
-                      <span>
-                        <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Maggi")[0].name}_png.png`)} style={{width: "120px", height: "150px"}}/>
-                      </span>
-                    </div>
-                    <div className="col-4 col-md-5 col-sm-8">
-                      <CardTitle tag="h3"
-                      className="text-uppercase text-muted mb-0">
-                      {item.filter(i => i.name==="Maggi")[0].name}
-                      </CardTitle>
-                      <h5>{item.filter(i => i.name==="Maggi")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
-                      <h4>Price: {item.filter(i => i.name==="Maggi")[0].price}</h4>
-                      <div>
-                      <FormGroup>
-                      <Input
-                        type="number" value={maggi} onChange={e=>setMaggi(e.target.value)}
-                      />
-                    </FormGroup>
-                      </div>
-                    </div>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </Col>
-                <Col lg="6" xl="4">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                    <CardBody>
-                      <Row>
-                      <div className="col-8 col-md-7 col-sm-4">
-                      <span>
-                        <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Nutella")[0].name}_png.png`)} style={{width: "120px", height: "150px"}}/>
-                      </span>
-                    </div>
-                    <div className="col-4 col-md-5 col-sm-8">
-                      <CardTitle tag="h3"
-                      className="text-uppercase text-muted mb-0">
-                      {item.filter(i => i.name==="Nutella")[0].name}
-                      </CardTitle>
-                      <h5>{item.filter(i => i.name==="Nutella")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
-                      <h4>Price: {item.filter(i => i.name==="Nutella")[0].price}</h4>
-                      <div>
-                      <FormGroup>
-                      <Input
-                        type="number" value={nutella} onChange={e=>setNutella(e.target.value)}
-                      />
-                    </FormGroup>
-                      </div>
-                    </div>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </Col>
-                <Col lg="6" xl="4">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                    <CardBody>
-                      <Row>
-                      <div className="col-8 col-md-7 col-sm-4">
-                      <span>
-                        <img alt="..." src={require(`assets/img/items/${item.filter(i => i.name==="Spaghetti")[0].name}_png.png`)} style={{width: "160px", height: "100px"}}/>
-                      </span>
-                    </div>
-                    <div className="col-4 col-md-5 col-sm-8">
-                      <CardTitle tag="h3"
-                      className="text-uppercase text-muted mb-0">
-                      {item.filter(i => i.name==="Spaghetti")[0].name}
-                      </CardTitle>
-                      <h5>{item.filter(i => i.name==="Spaghetti")[0].stock > 0 ? "In Stock" : "Out of Stock"}</h5>
-                      <h4>Price: {item.filter(i => i.name==="Spaghetti")[0].price}</h4>
-                      <div>
-                      <FormGroup>
-                      <Input
-                        type="number" value={spaghetti} onChange={e=>setSpaghetti(e.target.value)}
-                      />
-                    </FormGroup>
-                      </div>
-                    </div>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </Col>
-              </Row>
-            </div>
-          </Container>
-          <div className="text-center">
-          <Button color="primary" type="button" className="mt-4" onClick={handleClick}>
-            Add to Cart
-          </Button>
-          </div>
-          </Fragment>}
+      <Nav tabs>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '1' })}
+            onClick={() => { toggle('1'); }}
+          >
+            Drinks
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '2' })}
+            onClick={() => { toggle('2'); }}
+          >
+            Dairy
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '3' })}
+            onClick={() => { toggle('3'); }}
+          >
+            Chips
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '4' })}
+            onClick={() => { toggle('4'); }}
+          >
+            Noodles and Pasta
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '5' })}
+            onClick={() => { toggle('5'); }}
+          >
+            Chocolate
+          </NavLink>
+        </NavItem>
+      </Nav>
+      <TabContent activeTab={activeTab}>
+        <TabPane tabId="1">
+          <Row>
+            <Col sm="12">
+              {cartItem.category && <Category item={cartItem.category.categories[3]}/>}
+            </Col>
+          </Row>
+        </TabPane>
+        <TabPane tabId="2">
+          <Row>
+          <Col sm="12">
+          {cartItem.category && <Category item={cartItem.category.categories[2]}/>}
+        </Col>
+          </Row>
+        </TabPane>
+        <TabPane tabId="3">
+          <Row>
+          <Col sm="12">
+          {cartItem.category && <Category item={cartItem.category.categories[0]}/>}
+        </Col>
+          </Row>
+        </TabPane>
+        <TabPane tabId="4">
+          <Row>
+          {cartItem.category && <Category item={cartItem.category.categories[4]}/>}
+          </Row>
+        </TabPane>
+        <TabPane tabId="5">
+          <Row>
+          <Col sm="12">
+          {cartItem.category && <Category item={cartItem.category.categories[1]}/>}
+        </Col>
+          </Row>
+        </TabPane>
+      </TabContent>
         </div>
       </>
     );

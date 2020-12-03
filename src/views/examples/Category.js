@@ -42,10 +42,10 @@ const Category = ({item, AddtoCart}) => {
 
     return (
         <Fragment>
-        <div className="text-center">
+        <div className="text-center m-4">
         <h3>Category Name: {item.name}</h3>
     </div>
-            {state && item.items.map(i => <Col lg="6" xl="4">
+            <Row>{state && item.items.map(i => <Col lg="6" xl="4" className="mb-3 ml-3">
             <Card className="card-stats mb-4 mb-xl-0">
             <CardBody>
                 <Row>
@@ -73,6 +73,7 @@ const Category = ({item, AddtoCart}) => {
             </CardBody>
             </Card>
         </Col>)}
+        </Row>
             
             <div className="text-center">
           <Button color="primary" type="button" className="mt-4" onClick={handleClick}>

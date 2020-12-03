@@ -188,7 +188,10 @@ const Header = ({getItems, AddtoCart,history, cartItem, login, auth, clearMsg })
         </TabPane>
         <TabPane tabId="4">
           <Row>
+          <Col sm="12">
           {cartItem.category && <Category item={cartItem.category.categories[4]}/>}
+        </Col>
+          
           </Row>
         </TabPane>
         <TabPane tabId="5">
